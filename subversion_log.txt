@@ -1,0 +1,340 @@
+URL to view log online:
+https://source.eait.uq.edu.au/viewvc/csse2310-sem2-s4698620/trunk/a1/?view=log
+
+Retrieving logs at Mon Aug 22 19:55:33 AEST 2022
+------------------------------------------------------------------------
+r1 | uqpsutto | 2022-07-27 21:56:06 +1000 (Wed, 27 Jul 2022) | 1 line
+Changed paths:
+   A /play
+   A /prac
+   A /trunk
+   A /trunk/a1
+   A /trunk/a3
+   A /trunk/a4
+
+Initial repository structure
+
+
+------------------------------------------------------------------------
+r4 | s4698620 | 2022-08-18 17:35:13 +1000 (Thu, 18 Aug 2022) | 2 lines
+Changed paths:
+   A /trunk/a1/wordle-helper.c
+
+Initial commit - prints usage message to stderr & main function returns error code.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+------------------------------------------------------------------------
+r5 | s4698620 | 2022-08-19 12:04:26 +1000 (Fri, 19 Aug 2022) | 3 lines
+Changed paths:
+   A /trunk/a1/Makefile
+   M /trunk/a1/wordle-helper.c
+
+Adds new function get_length() which extracts the -len argument from the main function, checks its validity and returns the entered length integer if valid.
+Makefile added to compile program with required compiler flags.
+
+
+Index: Makefile
+ Makefile |   11 +++++++++++
+ 1 file changed, 11 insertions(+)
+Index: wordle-helper.c
+ wordle-helper.c |   79 +++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 78 insertions(+), 1 deletion(-)
+
+------------------------------------------------------------------------
+r6 | s4698620 | 2022-08-19 12:39:33 +1000 (Fri, 19 Aug 2022) | 3 lines
+Changed paths:
+   M /trunk/a1/Makefile
+   M /trunk/a1/wordle-helper.c
+
+Length argument parsing updated to detect duplicate entries. If any duplicate entries are -len are found, the program will now return the appropriate error code and print the usage message.
+Initial work on -with argument parsing.
+
+
+Index: Makefile
+ Makefile |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+Index: wordle-helper.c
+ wordle-helper.c |   45 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 34 insertions(+), 11 deletions(-)
+
+------------------------------------------------------------------------
+r7 | s4698620 | 2022-08-19 14:35:00 +1000 (Fri, 19 Aug 2022) | 3 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Commenting which outlines the purpose of the has_duplicates() added.
+Dictionary file getter function added which by default retrieves the dictionary file from /usr/share/dict/words. If the associated environment variable is set, then the funtion will use the directory defined there.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+------------------------------------------------------------------------
+r8 | s4698620 | 2022-08-19 18:35:21 +1000 (Fri, 19 Aug 2022) | 4 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Added function handle_alpha_argument() which is able to validate both the -with and -without arguments passed to the main function. 
+Added function is_string_alpha() which determines if a string is alpha numeric. The function will also return false if the string parsed into it is empty.
+Renamed get_length_arg() to handle_length_argument() to make it's purpose more clear. 
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  142 ++++++++++++++++++++++++++++++++++++++++++++++----------
+ 1 file changed, 118 insertions(+), 24 deletions(-)
+
+------------------------------------------------------------------------
+r9 | s4698620 | 2022-08-19 20:05:38 +1000 (Fri, 19 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Implemented general validity checker all_arguments_are_valid() function to check for input of arguments that start with '-' but are not recognized. 
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   75 +++++++++++++++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 69 insertions(+), 6 deletions(-)
+
+------------------------------------------------------------------------
+r10 | s4698620 | 2022-08-19 20:13:25 +1000 (Fri, 19 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Implemented print_words() function which will later be used to print an array of words(strings) to standard output.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   19 ++++++++-----------
+ 1 file changed, 8 insertions(+), 11 deletions(-)
+
+------------------------------------------------------------------------
+r11 | s4698620 | 2022-08-19 20:21:40 +1000 (Fri, 19 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Renamed all_arguments_are_valid() function to general_argument_validity_check() to be more clear about the function's purpose.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |    7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
+
+------------------------------------------------------------------------
+r12 | s4698620 | 2022-08-19 21:29:32 +1000 (Fri, 19 Aug 2022) | 6 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Implemented is_sorting_alpha() function which determines whether or not the -alpha argument has been specified.
+Implemented is_sorting_beta() function which determines whether or not the -beta argument has been specified.
+Added validity check to the main function which ensures both -alpha and -beta have not both been specified in the command line.
+Edited general_argument_validity_check() to check for duplication of -alpha or -beta arguments, if any duplication of these are found, the function will now fail.
+More detailed commenting written for general_argument_validity_check() which also now specifies the change above which was made.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   80 ++++++++++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 63 insertions(+), 17 deletions(-)
+
+------------------------------------------------------------------------
+r13 | s4698620 | 2022-08-20 22:03:03 +1000 (Sat, 20 Aug 2022) | 6 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Implemented handle_pattern_argument() which takes the arguments from the main function and checks for and validates the pattern argument.
+Implemented matches_pattern_format() method which is used in the pattern argument handler to determine if a string is in the format of a pattern, a pattern is defined as a string which consists
+of only letters (uppercase and lowercase) and underscores and matches a defined length X.
+Updated general_argument_validity_check() to now be able to tell if an argument is a pattern argument. This validator also now receives information about a validated pattern and it's index so it can determine if there were 2 pattern arguments entered.
+Main function updated to include pattern argument and return correct exit code if the pattern argument fails to be validated.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  265 ++++++++++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 212 insertions(+), 53 deletions(-)
+
+------------------------------------------------------------------------
+r14 | s4698620 | 2022-08-21 12:07:39 +1000 (Sun, 21 Aug 2022) | 6 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Code cleanup for handle_pattern_argument.
+Fixed a bug where the pattern argument would be checked for validity before the command line was checked.
+Renamed general_argument_validity_check() to command_line_validity_check() to make it's purpose more clear.
+Moved all argument duplication checks into command_line_validity_check() since this makes the most sense.
+Cleaned up code in the main() function and added comments to explain each of the validity checks.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  118 +++++++++++++++++++-------------------------------------
+ 1 file changed, 41 insertions(+), 77 deletions(-)
+
+------------------------------------------------------------------------
+r15 | s4698620 | 2022-08-21 12:50:47 +1000 (Sun, 21 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Implemented get_dictionary() function which attempts to use the environment variable "WORDLE_DICTIONARY" to find the directory of words. If the variable is set but the file cannot be opened, the function will exit the program with code 3. If the variable is not set, the function will use the default directory /usr/share/dict/words.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   67 ++++++++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 58 insertions(+), 9 deletions(-)
+
+------------------------------------------------------------------------
+r16 | s4698620 | 2022-08-21 17:11:18 +1000 (Sun, 21 Aug 2022) | 5 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Implemented get_dictionary_file() function which will first check to see if the environment variable "WORDLE_DICTIONARY" is set, then attempt to open the directory specified as this variables
+value. The function will use the directory /usr/share/dict/words if this environment variable is not set.
+Implemented get_dictionary() function which copies all words in the dictionary file into a Dictionary structure - this consists of a copy of all the words, and the total number of words.
+Initial work on the print_dictionary() function which will take all the variables specified in the command line and print the dictionary accordingly. As of right now, this function only considers and prints words of valid length.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   84 ++++++++++++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 73 insertions(+), 11 deletions(-)
+
+------------------------------------------------------------------------
+r17 | s4698620 | 2022-08-21 17:57:40 +1000 (Sun, 21 Aug 2022) | 3 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Program now prints all words in uppercase and with valid length using the print_dictionary() function.
+Implemented format_string() function which takes a string received through the wordle dictionary and formats it to upper case with exclusion of the \n character. Memory is free'ed after use.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   52 ++++++++++++++++++++++++++++++++++++++++------------
+ 1 file changed, 40 insertions(+), 12 deletions(-)
+
+------------------------------------------------------------------------
+r18 | s4698620 | 2022-08-21 19:45:30 +1000 (Sun, 21 Aug 2022) | 5 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Added word_without_characters() function which compares a word with an array of characters and returns false if the word contains any of these characters.
+Added word_with_characters() function which compares a word with an array of characters and returns true only if the word contains all of these characters with respect to how many times these
+characters should appear in the word. 
+Updated print_dictionary() function to now print the dictionary using the functions above (with characters and/or without characters). 
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  142 ++++++++++++++++++++++++++++++++++++++++++++++++++------
+ 1 file changed, 127 insertions(+), 15 deletions(-)
+
+------------------------------------------------------------------------
+r19 | s4698620 | 2022-08-21 20:09:18 +1000 (Sun, 21 Aug 2022) | 3 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Updated print_dictionary() function to now print words which follow the provided pattern.
+Fixed bug in print_dictionary() function where with and without parameters would be case sensitive.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |   73 +++++++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 54 insertions(+), 19 deletions(-)
+
+------------------------------------------------------------------------
+r20 | s4698620 | 2022-08-21 21:20:41 +1000 (Sun, 21 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Updated command_line_validity_check() function to check for duplicate patterns (pattern is not checked for validity at this stage).
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  110 +++++++++++++++++++++++++++++++++++++-------------------
+ 1 file changed, 74 insertions(+), 36 deletions(-)
+
+------------------------------------------------------------------------
+r21 | s4698620 | 2022-08-22 16:58:34 +1000 (Mon, 22 Aug 2022) | 7 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Removed get_dictionary() function as it's intended use is now coded into the print_dictionary() function.
+print_dictionary() function is now able to sort words in alphabetical order (no duplication removal yet).
+print_dictionary() function is not able to sort words in best order (no duplication removal yet).
+Added print_words() function which a list of words, prints them to standard output then free's each one from memory - intended use for print_dictionary() only.
+Fixed bug where the dictionary file was not closed after use - simple added fclose line once the dictionary has been printed.
+Fixed bug where memory was not free'd for the word list to be sorted.
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  241 ++++++++++++++++++++++++++------------------------------
+ 1 file changed, 113 insertions(+), 128 deletions(-)
+
+------------------------------------------------------------------------
+r22 | s4698620 | 2022-08-22 18:07:14 +1000 (Mon, 22 Aug 2022) | 5 lines
+Changed paths:
+   M /trunk/a1/wordle-helper.c
+
+Updated commenting of print_dictionary() to include dictionary_file rather than Dictionary struct.
+Implemented duplication removal for -best and -alpha algorithms - this was done by simply replacing duplicates with a placeholder which is later skipped over when printing words.
+Fixed bug where -best was not sorting in alphabetical order when words were of equal likelihood.
+Cleaned up commenting of program to no longer include parameter types (already specified in function parameters).
+
+
+Index: wordle-helper.c
+ wordle-helper.c |  156 +++++++++++++++++++++++++++++++++++++++++---------------
+ 1 file changed, 115 insertions(+), 41 deletions(-)
+
+------------------------------------------------------------------------
+r23 | s4698620 | 2022-08-22 18:58:07 +1000 (Mon, 22 Aug 2022) | 4 lines
+Changed paths:
+   D /trunk/a1/wordle-helper.c
+   A /trunk/a1/wordleHelper.c (from /trunk/a1/wordle-helper.c:22)
+
+Simplified print_dictionary() function to comply with style guide (now within 50 lines)
+Fixed inconsistent pointer declarations throughout program.
+Renamed wordle-helper.c to wordleHelper.c to comply with style guide.
+
+
+Index: wordle-helper.c (deleted)
+Index: wordleHelper.c
+ wordleHelper.c |  821 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 821 insertions(+)
+
+------------------------------------------------------------------------
+r24 | s4698620 | 2022-08-22 19:03:12 +1000 (Mon, 22 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/Makefile
+
+Makefile updated to compile wordleHelper.c rather than previously named wordle-helper.c
+
+
+Index: Makefile
+ Makefile |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+------------------------------------------------------------------------
+r25 | s4698620 | 2022-08-22 19:20:35 +1000 (Mon, 22 Aug 2022) | 3 lines
+Changed paths:
+   M /trunk/a1/wordleHelper.c
+
+Reversed order word1 and word2 are placed in the guess_compare() function to reverse listing of words.
+Fixed bug where the invalid pattern message was not replacing variable "N" with actual length value.
+
+
+Index: wordleHelper.c
+ wordleHelper.c |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+------------------------------------------------------------------------
+r26 | s4698620 | 2022-08-22 19:48:56 +1000 (Mon, 22 Aug 2022) | 2 lines
+Changed paths:
+   M /trunk/a1/wordleHelper.c
+
+Commenting format for each function updated to include error conditions. Function names also now included in commenting.
+
+
+Index: wordleHelper.c
+ wordleHelper.c |  107 ++++++++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 76 insertions(+), 31 deletions(-)
+
+------------------------------------------------------------------------
